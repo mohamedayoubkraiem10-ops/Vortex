@@ -1,0 +1,1278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>VORTEX AI — Intelligence Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: #070707;
+        color: #f4f4f4;
+        font-family: Inter, Arial, sans-serif;
+      }
+      .loader {
+        position: fixed;
+        inset: 0;
+        background: #050505;
+        z-index: 999;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        transition: 0.5s;
+      }
+      .loader.hide {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .loader b {
+        font: 900 80px "Barlow Condensed";
+        color: #ff3038;
+      }
+      .loader i {
+        display: block;
+        width: 180px;
+        height: 2px;
+        background: #ff3038;
+        margin: 15px auto;
+      }
+      .header {
+        height: 72px;
+        border-bottom: 1px solid #222;
+        background: #070707;
+        display: flex;
+        align-items: center;
+        padding: 0 6%;
+        gap: 30px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .logo {
+        color: #fff;
+        text-decoration: none;
+        font: 900 25px "Barlow Condensed";
+      }
+      .logo span {
+        color: #ff3038;
+        font-size: 35px;
+        font-style: italic;
+      }
+      .nav {
+        display: flex;
+        gap: 27px;
+        margin: auto;
+      }
+      .nav a {
+        color: #777;
+        text-decoration: none;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+      }
+      .nav a:hover,
+      .nav .active {
+        color: #fff;
+      }
+      .join,
+      .menu {
+        background: none;
+        border: 1px solid #333;
+        color: #fff;
+        padding: 11px 15px;
+        font-size: 9px;
+        font-weight: 900;
+      }
+      .menu {
+        display: none;
+      }
+      .hero {
+        min-height: 660px;
+        padding: 100px 7%;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        background: radial-gradient(
+          circle at 75% 50%,
+          #230709,
+          #080707 42%,
+          #070707 72%
+        );
+      }
+      .hero:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(#181818 1px, transparent 1px),
+          linear-gradient(90deg, #181818 1px, transparent 1px);
+        background-size: 70px 70px;
+        opacity: 0.2;
+      }
+      .hero > * {
+        position: relative;
+        z-index: 1;
+      }
+      .status {
+        font-size: 10px;
+        color: #ff3038;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+      .status i {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ff3038;
+        box-shadow: 0 0 14px #ff3038;
+        margin-right: 8px;
+      }
+      .hero h1 {
+        font: 900 clamp(60px, 7vw, 110px)/0.84 "Barlow Condensed";
+        margin: 25px 0;
+      }
+      .hero h1 em,
+      .section-title em,
+      .panel h3 em,
+      .features h2 em,
+      .cta h2 em {
+        color: #ff3038;
+        font-style: normal;
+      }
+      .hero p {
+        max-width: 610px;
+        color: #8b929a;
+        line-height: 1.8;
+      }
+      .actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 30px;
+      }
+      .red,
+      .dark {
+        padding: 16px 24px;
+        border: 1px solid #333;
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .red {
+        background: #ff3038;
+        color: #fff;
+        border: 0;
+      }
+      .dark {
+        background: #0b0b0b;
+        color: #fff;
+      }
+      .orbit {
+        height: 450px;
+        display: grid;
+        place-items: center;
+        position: relative;
+      }
+      .ring {
+        position: absolute;
+        border: 1px solid rgba(255, 48, 56, 0.3);
+        border-radius: 50%;
+      }
+      .r1 {
+        width: 440px;
+        height: 440px;
+      }
+      .r2 {
+        width: 280px;
+        height: 280px;
+        transform: scaleX(1.5) rotate(15deg);
+      }
+      .r3 {
+        width: 350px;
+        height: 150px;
+        transform: scaleX(1.4) rotate(-20deg);
+      }
+      .core {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        background: radial-gradient(circle, #ff3038, #290506 55%, #070707 72%);
+        box-shadow: 0 0 45px #ff303866;
+      }
+      .core b {
+        font: 900 65px "Barlow Condensed";
+      }
+      .float {
+        position: absolute;
+        background: #111;
+        border: 1px solid #292929;
+        padding: 15px;
+      }
+      .float small {
+        display: block;
+        color: #666;
+        font-size: 8px;
+      }
+      .float strong {
+        font: 900 27px "Barlow Condensed";
+      }
+      .f1 {
+        right: 0;
+        top: 55px;
+      }
+      .f2 {
+        left: 0;
+        bottom: 45px;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border-block: 1px solid #222;
+      }
+      .metrics div {
+        padding: 24px 7%;
+        border-right: 1px solid #222;
+      }
+      .metrics b {
+        font: 900 28px "Barlow Condensed";
+        display: block;
+      }
+      .metrics span {
+        color: #666;
+        font-size: 8px;
+        letter-spacing: 1px;
+      }
+      .section {
+        padding: 90px 7%;
+      }
+      .section-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        margin-bottom: 30px;
+      }
+      .eyebrow {
+        color: #ff3038;
+        font-size: 9px;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+      .section-title h2,
+      .features h2,
+      .cta h2 {
+        font: 900 65px "Barlow Condensed";
+        margin-top: 10px;
+      }
+      .dashboard {
+        border: 1px solid #282828;
+        background: #0b0b0b;
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        min-height: 650px;
+      }
+      .sidebar {
+        border-right: 1px solid #222;
+      }
+      .side-head {
+        padding: 25px;
+        border-bottom: 1px solid #222;
+        font-weight: 900;
+        font-size: 12px;
+      }
+      .side-head span {
+        background: #ff3038;
+        padding: 9px;
+        margin-right: 9px;
+      }
+      .tab {
+        width: 100%;
+        padding: 18px 20px;
+        background: none;
+        color: #666;
+        border: 0;
+        border-bottom: 1px solid #181818;
+        text-align: left;
+        font-size: 10px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .tab.active,
+      .tab:hover {
+        color: #fff;
+        border-left: 3px solid #ff3038;
+        background: #141414;
+      }
+      .credits {
+        margin: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #222;
+        color: #666;
+        font-size: 9px;
+      }
+      .credits strong {
+        display: block;
+        color: #fff;
+        margin: 8px 0;
+      }
+      .creditbar {
+        height: 4px;
+        background: #252525;
+      }
+      .creditbar i {
+        display: block;
+        width: 72%;
+        height: 100%;
+        background: #ff3038;
+      }
+      .panelarea {
+        padding: 32px;
+      }
+      .panel {
+        display: none;
+      }
+      .panel.active {
+        display: block;
+      }
+      .paneltop {
+        display: flex;
+        justify-content: space-between;
+      }
+      .paneltop small {
+        color: #ff3038;
+        font-size: 8px;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+      .panel h3 {
+        font: 900 35px "Barlow Condensed";
+        margin: 8px 0 25px;
+      }
+      .ready {
+        color: #43e991;
+        font-size: 9px;
+      }
+      .upload {
+        min-height: 260px;
+        border: 1px dashed #3b3b3b;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        background: radial-gradient(circle, #17090a, #0a0a0a);
+        cursor: pointer;
+      }
+      .upload .up {
+        font-size: 30px;
+        color: #ff3038;
+        border: 1px solid #444;
+        width: 55px;
+        height: 55px;
+        display: grid;
+        place-content: center;
+        margin: auto;
+      }
+      .upload h4 {
+        font: 900 26px "Barlow Condensed";
+        margin: 13px;
+      }
+      .upload p {
+        font-size: 11px;
+        color: #666;
+      }
+      .white {
+        margin: 18px auto 10px;
+        background: #fff;
+        border: 0;
+        padding: 12px 20px;
+        font-size: 9px;
+        font-weight: 900;
+      }
+      .file {
+        font-size: 10px;
+        color: #ff3038;
+      }
+      .controls {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 15px;
+      }
+      .controls label,
+      .form label {
+        color: #666;
+        font-size: 8px;
+        font-weight: 900;
+      }
+      .controls select,
+      .form input,
+      .search input,
+      .search select,
+      .chat input {
+        width: 100%;
+        background: #0a0a0a;
+        color: #fff;
+        border: 1px solid #292929;
+        padding: 14px;
+        margin-top: 6px;
+      }
+      .analyze {
+        width: 100%;
+        margin-top: 12px;
+        background: #ff3038;
+        color: #fff;
+        border: 0;
+        padding: 16px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .result {
+        display: none;
+        margin-top: 12px;
+        padding: 18px;
+        background: #111;
+        border: 1px solid #292929;
+        color: #aaa;
+        font-size: 11px;
+        line-height: 1.7;
+      }
+      .result.show {
+        display: block;
+      }
+      .cards,
+      .scout,
+      .plans,
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .card,
+      .scout article,
+      .plan,
+      .kpi {
+        background: #101010;
+        border: 1px solid #292929;
+        padding: 22px;
+      }
+      .card small,
+      .scout small,
+      .plan small,
+      .kpi small {
+        color: #666;
+        font-size: 8px;
+      }
+      .card h4,
+      .scout h4,
+      .plan h4 {
+        font: 900 28px "Barlow Condensed";
+        margin: 20px 0 3px;
+      }
+      .score {
+        font: 900 38px "Barlow Condensed";
+        color: #ff3038;
+      }
+      .bar {
+        height: 4px;
+        background: #282828;
+        margin: 8px 0;
+      }
+      .bar i {
+        display: block;
+        height: 100%;
+        background: #ff3038;
+      }
+      .card p,
+      .scout p,
+      .plan p {
+        font-size: 9px;
+        color: #666;
+        line-height: 1.7;
+      }
+      .search {
+        display: grid;
+        grid-template-columns: 2fr 1fr auto;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+      .search button {
+        background: #ff3038;
+        color: #fff;
+        border: 0;
+        padding: 0 20px;
+        font-weight: 900;
+      }
+      .scout article {
+        position: relative;
+      }
+      .scout article strong {
+        position: absolute;
+        right: 18px;
+        top: 22px;
+        color: #ff3038;
+        font: 900 30px "Barlow Condensed";
+      }
+      .tag {
+        display: inline-block;
+        margin-top: 15px;
+        color: #ff3038;
+        border: 1px solid #4a2022;
+        padding: 5px;
+        font-size: 7px;
+        font-weight: 900;
+      }
+      .form {
+        display: grid;
+        grid-template-columns: 1fr 55px 1fr;
+        gap: 12px;
+        align-items: end;
+      }
+      .vs {
+        text-align: center;
+        padding-bottom: 12px;
+        color: #ff3038;
+        font-weight: 900;
+      }
+      .pred {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 25px;
+      }
+      .pred strong {
+        font: 900 28px "Barlow Condensed";
+      }
+      .predbar {
+        height: 12px;
+        background: #222;
+        flex: 1;
+      }
+      .predbar i {
+        display: block;
+        width: 78%;
+        height: 100%;
+        background: #ff3038;
+      }
+      .kpis {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .kpi strong {
+        display: block;
+        font: 900 38px "Barlow Condensed";
+        margin: 10px 0;
+      }
+      .kpi span {
+        color: #44e98f;
+        font-size: 8px;
+      }
+      .chart {
+        height: 190px;
+        border: 1px solid #292929;
+        margin-top: 15px;
+        padding: 20px;
+        display: flex;
+        align-items: end;
+        gap: 2%;
+      }
+      .chart i {
+        width: 8%;
+        background: #ff3038;
+      }
+      .plans {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .plan strong {
+        display: block;
+        font: 900 40px "Barlow Condensed";
+        margin: 15px 0;
+      }
+      .plan button {
+        margin-top: 18px;
+        background: #111;
+        color: #fff;
+        border: 1px solid #333;
+        padding: 10px;
+        font-size: 8px;
+        font-weight: 900;
+      }
+      .plan.pro {
+        border-color: #ff3038;
+      }
+      .plan.pro button {
+        background: #ff3038;
+      }
+      .api {
+        border: 1px solid #292929;
+      }
+      .api div {
+        display: grid;
+        grid-template-columns: 55px 1fr auto;
+        gap: 10px;
+        padding: 16px;
+        border-bottom: 1px solid #222;
+      }
+      .api span {
+        color: #ff3038;
+        font-size: 8px;
+        font-weight: 900;
+      }
+      .api code {
+        color: #aaa;
+        font-size: 10px;
+      }
+      .api button {
+        background: #151515;
+        color: #fff;
+        border: 1px solid #333;
+        padding: 6px;
+      }
+      .chatbox {
+        height: 330px;
+        border: 1px solid #292929;
+        padding: 18px;
+        overflow: auto;
+      }
+      .msg {
+        padding: 12px;
+        border: 1px solid #292929;
+        margin-bottom: 10px;
+        font-size: 10px;
+        color: #aaa;
+      }
+      .msg b {
+        color: #ff3038;
+      }
+      .chat {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        margin-top: 10px;
+      }
+      .chat button {
+        background: #ff3038;
+        color: #fff;
+        border: 0;
+        padding: 0 20px;
+        font-weight: 900;
+      }
+      .features h2 {
+        margin: 12px 0 30px;
+      }
+      .featuregrid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border: 1px solid #292929;
+      }
+      .featuregrid article {
+        padding: 25px;
+        min-height: 250px;
+        border-right: 1px solid #292929;
+      }
+      .featuregrid article:last-child {
+        border: 0;
+      }
+      .featuregrid i {
+        display: block;
+        color: #ff3038;
+        font-size: 25px;
+        margin: 65px 0 10px;
+      }
+      .featuregrid h3 {
+        font: 900 25px "Barlow Condensed";
+        line-height: 1;
+      }
+      .featuregrid p {
+        font-size: 9px;
+        color: #666;
+        line-height: 1.7;
+        margin-top: 10px;
+      }
+      .cta {
+        text-align: center;
+        padding: 110px 7%;
+        background: radial-gradient(circle, #1d0708, #070707 60%);
+      }
+      .cta p {
+        max-width: 550px;
+        color: #777;
+        margin: 0 auto 25px;
+        line-height: 1.7;
+      }
+      .footer {
+        border-top: 1px solid #222;
+        padding: 30px 7%;
+        display: flex;
+        justify-content: space-between;
+        color: #555;
+        font-size: 9px;
+      }
+      @media (max-width: 900px) {
+        .nav,
+        .join {
+          display: none;
+        }
+        .menu {
+          display: block;
+          margin-left: auto;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .orbit {
+          display: none;
+        }
+        .metrics {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .dashboard {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          border-right: 0;
+          border-bottom: 1px solid #222;
+        }
+        .cards,
+        .scout,
+        .plans,
+        .featuregrid,
+        .kpis {
+          grid-template-columns: 1fr 1fr;
+        }
+        .panelarea {
+          padding: 20px;
+        }
+      }
+      @media (max-width: 600px) {
+        .hero h1 {
+          font-size: 65px;
+        }
+        .section {
+          padding: 65px 4%;
+        }
+        .section-title {
+          display: block;
+        }
+        .section-title h2,
+        .features h2 {
+          font-size: 50px;
+        }
+        .controls,
+        .search,
+        .form,
+        .cards,
+        .scout,
+        .plans,
+        .featuregrid,
+        .kpis {
+          grid-template-columns: 1fr;
+        }
+        .featuregrid article {
+          border-right: 0;
+          border-bottom: 1px solid #292929;
+        }
+        .footer {
+          display: block;
+        }
+        .footer > * {
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loader" id="loader"><b>V</b><i></i></div>
+    <header class="header">
+      <a class="logo" href="index.html"><span>V</span> VORTEX</a>
+      <nav class="nav">
+        <a href="index.html">HOME</a><a href="matches.html">MATCHES</a
+        ><a href="roster.html">ROSTER</a><a href="news.html">NEWS</a
+        ><a class="active" href="ai.html">VORTEX AI</a
+        ><a href="shop.html">SHOP</a>
+      </nav>
+      <button
+        class="join"
+        onclick="alert('Account system will connect to the backend.')"
+      >
+        AI ACCOUNT ↗</button
+      ><button class="menu">☰</button>
+    </header>
+    <main>
+      <section class="hero">
+        <div>
+          <span class="status"><i></i> VORTEX AI · SYSTEM ONLINE</span>
+          <h1>TURN DATA INTO<br /><em>ADVANTAGE.</em></h1>
+          <p>
+            Analyze matches, scout players, predict outcomes and give your
+            organization an AI-powered competitive edge.
+          </p>
+          <div class="actions">
+            <button
+              class="red"
+              onclick="
+                document
+                  .querySelector('#workspace')
+                  .scrollIntoView({ behavior: 'smooth' })
+              "
+            >
+              START ANALYSIS ↗</button
+            ><button
+              class="dark"
+              onclick="
+                document
+                  .querySelector('#features')
+                  .scrollIntoView({ behavior: 'smooth' })
+              "
+            >
+              EXPLORE AI
+            </button>
+          </div>
+        </div>
+        <div class="orbit">
+          <div class="ring r1"></div>
+          <div class="ring r2"></div>
+          <div class="ring r3"></div>
+          <div class="core"><b>V</b></div>
+          
+        </div>
+      </section>
+      <div class="metrics">
+        
+      </div>
+      <section class="section" id="workspace">
+        <div class="section-title">
+          <div>
+            <span class="eyebrow">VORTEX AI ENGINE</span>
+            <h2>COMMAND <em>CENTER.</em></h2>
+          </div>
+          <small style="color: #44e98f">● READY</small>
+        </div>
+        <div class="dashboard">
+          <aside class="sidebar">
+            <div class="side-head"><span>V</span> VORTEX AI</div>
+            <button class="tab active" data-panel="analysis">
+              ✦ &nbsp; MATCH ANALYSIS</button
+            ><button class="tab" data-panel="players">
+              ◇ &nbsp; PLAYER ANALYTICS</button
+            ><button class="tab" data-panel="scouting">◈ &nbsp; SCOUTING</button
+            ><button class="tab" data-panel="prediction">
+              ◉ &nbsp; MATCH PREDICTION</button
+            ><button class="tab" data-panel="chat">▣ &nbsp; AI CHAT</button
+            ><button class="tab" data-panel="team">
+              ◆ &nbsp; TEAM DASHBOARD</button
+            ><button class="tab" data-panel="billing">
+              ▤ &nbsp; SUBSCRIPTIONS</button
+            ><button class="tab" data-panel="api">⌘ &nbsp; API</button>
+            <div class="credits">
+              AI CREDITS<strong id="credits">72 / 100</strong>
+              <div class="creditbar"><i id="creditbar"></i></div>
+            </div>
+          </aside>
+          <div class="panelarea">
+            <div class="panel active" id="panel-analysis">
+              <div class="paneltop">
+                <div>
+                  <small>AI MATCH ANALYSIS</small>
+                  <h3>ANALYZE <em>GAMEPLAY.</em></h3>
+                </div>
+                <span class="ready">● READY</span>
+              </div>
+              <div class="upload" id="upload">
+                <input id="file" type="file" accept="video/*" hidden />
+                <div class="up">↑</div>
+                <h4>DROP YOUR GAMEPLAY</h4>
+                <p>Drag & drop video here or select a file.</p>
+                <button class="white" id="select">SELECT VIDEO</button
+                ><small>MP4 · WEBM · MOV</small>
+                <div class="file" id="filename"></div>
+              </div>
+              <div class="controls">
+                <label
+                  >GAME<select>
+                    <option>VALORANT</option>
+                    <option>CS2</option>
+                    <option>FORTNITE</option>
+                    <option>MARVEL RIVALS</option>
+                  </select></label
+                ><label
+                  >ANALYSIS<select>
+                    <option>FULL MATCH</option>
+                    <option>ROUND ANALYSIS</option>
+                    <option>PLAYER PERFORMANCE</option>
+                  </select></label
+                ><label
+                  >QUALITY<select>
+                    <option>1080P</option>
+                    <option>1440P</option>
+                    <option>4K</option>
+                  </select></label
+                >
+              </div>
+              <button class="analyze" id="analyze">✦ ANALYZE GAMEPLAY →</button>
+              <div class="result" id="result"></div>
+            </div>
+            <div class="panel" id="panel-players">
+              <div class="paneltop">
+                <div>
+                  <small>PLAYER INTELLIGENCE</small>
+                  <h3>PLAYER <em>ANALYTICS.</em></h3>
+                </div>
+              </div>
+              <div class="cards">
+                <article class="card">
+                  <small>01 · IGL / DUELIST</small>
+                  <h4>AXEL</h4>
+                  <div class="score">94.2</div>
+                  <div class="bar"><i style="width: 94%"></i></div>
+                  <p>Impact 94 · Clutch 87% · Consistency 96%</p>
+                </article>
+                <article class="card">
+                  <small>02 · ENTRY FRAGGER</small>
+                  <h4>NOVA</h4>
+                  <div class="score">91.7</div>
+                  <div class="bar"><i style="width: 91%"></i></div>
+                  <p>Impact 92 · ACS 248 · First duel +14%</p>
+                </article>
+                <article class="card">
+                  <small>03 · SNIPER</small>
+                  <h4>KRYPT</h4>
+                  <div class="score">89.4</div>
+                  <div class="bar"><i style="width: 89%"></i></div>
+                  <p>Impact 89 · K/D 1.31 · Opening picks +21%</p>
+                </article>
+              </div>
+            </div>
+            <div class="panel" id="panel-scouting">
+              <div class="paneltop">
+                <div>
+                  <small>SCOUTING ENGINE</small>
+                  <h3>FIND THE <em>NEXT STAR.</em></h3>
+                </div>
+              </div>
+              <div class="search">
+                <input
+                  id="scoutq"
+                  placeholder="Search player, role or region..."
+                /><select>
+                  <option>ALL ROLES</option>
+                  <option>DUELIST</option>
+                  <option>IGL</option>
+                  <option>SUPPORT</option></select
+                ><button id="scan">SCAN →</button>
+              </div>
+              <div class="scout">
+                <article>
+                  <small>TUNISIA · DUELIST</small>
+                  <h4>RAVENX</h4>
+                  <strong>92.8</strong>
+                  <p>High entry potential · Aggressive</p>
+                  <span class="tag">HIGH VALUE</span>
+                </article>
+                <article>
+                  <small>FRANCE · FLEX</small>
+                  <h4>LYNX</h4>
+                  <strong>90.6</strong>
+                  <p>Excellent utility · Team player</p>
+                  <span class="tag">WATCHLIST</span>
+                </article>
+                <article>
+                  <small>MOROCCO · IGL</small>
+                  <h4>NOIR</h4>
+                  <strong>88.9</strong>
+                  <p>Strong leadership · Tactical</p>
+                  <span class="tag">RISING</span>
+                </article>
+              </div>
+            </div>
+            <div class="panel" id="panel-prediction">
+              <div class="paneltop">
+                <div>
+                  <small>PREDICTIVE ENGINE</small>
+                  <h3>MATCH <em>PREDICTION.</em></h3>
+                </div>
+              </div>
+              <div class="form">
+                <label>TEAM A<input id="teamA" value="VORTEX" /></label>
+                <div class="vs">VS</div>
+                <label>TEAM B<input id="teamB" value="PHANTOM" /></label>
+              </div>
+              <button class="analyze" id="predict">◉ RUN PREDICTION →</button>
+              <div class="pred">
+                <strong id="pa">78%</strong>
+                <div class="predbar"><i id="pb"></i></div>
+                <strong id="pc">22%</strong>
+              </div>
+              <p style="color: #555; font-size: 9px; margin-top: 15px">
+                Demo prediction UI. Connect a real statistical/ML backend before
+                commercial use.
+              </p>
+            </div>
+            <div class="panel" id="panel-chat">
+              <div class="paneltop">
+                <div>
+                  <small>VORTEX INTELLIGENCE</small>
+                  <h3>ASK <em>VORTEX AI.</em></h3>
+                </div>
+              </div>
+              <div class="chatbox" id="chatbox">
+                <div class="msg">
+                  <b>VORTEX AI</b><br />Ready. Ask about a match, player,
+                  strategy or scouting report.
+                </div>
+              </div>
+              <div class="chat">
+                <input id="chatinput" placeholder="Ask VORTEX AI..." /><button
+                  id="send"
+                >
+                  SEND ↗
+                </button>
+              </div>
+            </div>
+            <div class="panel" id="panel-team">
+              <div class="paneltop">
+                <div>
+                  <small>ORGANIZATION OVERVIEW</small>
+                  <h3>TEAM <em>DASHBOARD.</em></h3>
+                </div>
+              </div>
+              <div class="kpis">
+                <div class="kpi">
+                  <small>WIN RATE</small><strong>86%</strong><span>+4.2%</span>
+                </div>
+                <div class="kpi">
+                  <small>AVG RATING</small><strong>91.4</strong
+                  ><span>+2.8</span>
+                </div>
+                <div class="kpi">
+                  <small>MAP WIN</small><strong>78%</strong><span>+6.1%</span>
+                </div>
+                <div class="kpi">
+                  <small>SCOUT SCORE</small><strong>A+</strong
+                  ><span>TOP TIER</span>
+                </div>
+              </div>
+              <div class="chart">
+                <i style="height: 45%"></i><i style="height: 62%"></i
+                ><i style="height: 54%"></i><i style="height: 73%"></i
+                ><i style="height: 66%"></i><i style="height: 81%"></i
+                ><i style="height: 76%"></i><i style="height: 91%"></i
+                ><i style="height: 84%"></i><i style="height: 96%"></i>
+              </div>
+            </div>
+            <div class="panel" id="panel-billing">
+              <div class="paneltop">
+                <div>
+                  <small>VORTEX AI BUSINESS</small>
+                  <h3>PLANS FOR <em>TEAMS.</em></h3>
+                </div>
+              </div>
+              <div class="plans">
+                <article class="plan">
+                  <small>FREE</small>
+                  <h4>STARTER</h4>
+                  <strong>€0</strong>
+                  <p>
+                    Basic analytics<br />5 analyses / month<br />Community
+                    support
+                  </p>
+                  <button>CURRENT PLAN</button>
+                </article>
+                <article class="plan pro">
+                  <small>PRO</small>
+                  <h4>COMPETITIVE</h4>
+                  <strong>€29<small>/mo</small></strong>
+                  <p>
+                    Advanced analytics<br />Scouting<br />Predictions<br />AI
+                    Chat
+                  </p>
+                  <button
+                    onclick="
+                      alert(
+                        'Connect this button to Stripe or another payment provider.',
+                      )
+                    "
+                  >
+                    CHOOSE PRO →
+                  </button>
+                </article>
+                <article class="plan">
+                  <small>ORG</small>
+                  <h4>ENTERPRISE</h4>
+                  <strong>CUSTOM</strong>
+                  <p>
+                    Team dashboard<br />API access<br />Admin controls<br />Priority
+                    support
+                  </p>
+                  <button>CONTACT SALES</button>
+                </article>
+              </div>
+            </div>
+            <div class="panel" id="panel-api">
+              <div class="paneltop">
+                <div>
+                  <small>DEVELOPER PLATFORM</small>
+                  <h3>VORTEX <em>API.</em></h3>
+                </div>
+              </div>
+              <div class="api">
+                <div>
+                  <span>GET</span><code>/api/v1/players</code
+                  ><button onclick="copyText('/api/v1/players')">COPY</button>
+                </div>
+                <div>
+                  <span>POST</span><code>/api/v1/analyze</code
+                  ><button onclick="copyText('/api/v1/analyze')">COPY</button>
+                </div>
+                <div>
+                  <span>GET</span><code>/api/v1/matches/{id}/prediction</code
+                  ><button
+                    onclick="copyText('/api/v1/matches/{id}/prediction')"
+                  >
+                    COPY
+                  </button>
+                </div>
+              </div>
+              <p style="color: #555; font-size: 9px; margin-top: 15px">
+                These are frontend API placeholders. The real API, database,
+                authentication and model processing belong in the backend.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section features" id="features">
+        <span class="eyebrow">THE AI ADVANTAGE</span>
+        <h2>BUILT FOR <em>ESPORTS.</em></h2>
+        <div class="featuregrid">
+          <article>
+            <b>01</b><i>✦</i>
+            <h3>MATCH<br />ANALYSIS</h3>
+            <p>Turn match data into tactical and performance insights.</p>
+          </article>
+          <article>
+            <b>02</b><i>◇</i>
+            <h3>PLAYER<br />SCOUTING</h3>
+            <p>Find and compare talent by role, impact and team fit.</p>
+          </article>
+          <article>
+            <b>03</b><i>◈</i>
+            <h3>MATCH<br />PREDICTION</h3>
+            <p>
+              Create a data-driven prediction layer from historical statistics.
+            </p>
+          </article>
+          <article>
+            <b>04</b><i>⚡</i>
+            <h3>TEAM<br />INTELLIGENCE</h3>
+            <p>
+              Centralize dashboards, users, API access and organization data.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section class="cta">
+        <span class="eyebrow">VORTEX AI</span>
+        <h2>BUILD THE <em>ADVANTAGE.</em></h2>
+        <p>
+          Start with a powerful frontend dashboard, then connect your backend,
+          database and real AI models as the business grows.
+        </p>
+        <button
+          class="red"
+          onclick="
+            document
+              .querySelector('#workspace')
+              .scrollIntoView({ behavior: 'smooth' })
+          "
+        >
+          OPEN AI DASHBOARD ↗
+        </button>
+      </section>
+    </main>
+    <footer class="footer">
+      <a class="logo" href="index.html"><span>V</span> VORTEX</a>
+      <p>© 2026 VORTEX ESPORTS · VORTEX AI</p>
+      <p>ADMIN · API · ACCOUNTS · DATABASE</p>
+    </footer>
+    <script>
+      const $ = (s) => document.querySelector(s),
+        $$ = (s) => document.querySelectorAll(s);
+      setTimeout(() => $("#loader").classList.add("hide"), 700);
+      $$(".tab").forEach(
+        (t) =>
+          (t.onclick = () => {
+            $$(".tab").forEach((x) => x.classList.remove("active"));
+            $$(".panel").forEach((x) => x.classList.remove("active"));
+            t.classList.add("active");
+            $("#panel-" + t.dataset.panel).classList.add("active");
+          }),
+      );
+      const file = $("#file");
+      $("#select").onclick = (e) => {
+        e.stopPropagation();
+        file.click();
+      };
+      $("#upload").onclick = (e) => {
+        if (e.target !== $("#select")) file.click();
+      };
+      file.onchange = () => {
+        if (file.files[0])
+          $("#filename").textContent = "SELECTED: " + file.files[0].name;
+      };
+      $("#analyze").onclick = () => {
+        $("#result").classList.add("show");
+        $("#result").innerHTML =
+          '<b style="color:#ff3038">ANALYSIS COMPLETE</b><br><br>Detected 14 high-impact moments · 8 tactical patterns · 3 improvement areas.<br><br><b>Demo insight:</b> positioning and timing are the main improvement opportunities.';
+        $("#credits").textContent = "64 / 100";
+        $("#creditbar").style.width = "64%";
+      };
+      $("#predict").onclick = () => {
+        let a = Math.floor(55 + Math.random() * 31),
+          b = 100 - a;
+        $("#pa").textContent = a + "%";
+        $("#pc").textContent = b + "%";
+        $("#pb").style.width = a + "%";
+      };
+      $("#scan").onclick = () =>
+        alert(
+          "Demo scouting scan: " +
+            ($("#scoutq").value || "all players") +
+            "\nConnect this to your player database for real scouting.",
+        );
+      function send() {
+        let v = $("#chatinput").value.trim();
+        if (!v) return;
+        $("#chatbox").innerHTML +=
+          `<div class="msg"><b>YOU</b><br>${v.replace(/[<>]/g, "")}</div>`;
+        $("#chatinput").value = "";
+        setTimeout(
+          () =>
+            ($("#chatbox").innerHTML +=
+              '<div class="msg"><b>VORTEX AI</b><br>Demo response. Connect your AI backend/model here for real answers.</div>'),
+          350,
+        );
+      }
+      $("#send").onclick = send;
+      $("#chatinput").onkeydown = (e) => {
+        if (e.key === "Enter") send();
+      };
+      function copyText(t) {
+        navigator.clipboard?.writeText(t);
+        alert("Copied: " + t);
+      }
+    </script>
+  </body>
+</html>

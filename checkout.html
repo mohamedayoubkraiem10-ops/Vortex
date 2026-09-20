@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>VORTEX — Checkout</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="checkout-page">
+
+
+<!-- =====================================================
+     LOADER
+===================================================== -->
+
+<div class="loader">
+
+    <div class="loader-logo">
+        V
+    </div>
+
+    <div class="loader-bar">
+        <span></span>
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <a href="index.html" class="logo">
+        <span>V</span> VORTEX
+    </a>
+
+
+    <nav class="nav">
+
+        <a href="index.html">
+            HOME
+        </a>
+
+        <a href="matches.html">
+            MATCHES
+        </a>
+
+        <a href="roster.html">
+            ROSTER
+        </a>
+
+        <a href="news.html">
+            NEWS
+        </a>
+
+        <a href="ai.html" class="ai-nav-link">
+            VORTEX AI
+        </a>
+
+        <a href="shop.html">
+            SHOP
+        </a>
+
+    </nav>
+
+
+    <a
+        href="contact.html"
+        class="header-btn"
+    >
+        JOIN VORTEX <i>↗</i>
+    </a>
+
+
+    <button class="menu">
+        ☰
+    </button>
+
+</header>
+
+
+<!-- =====================================================
+     CHECKOUT
+===================================================== -->
+
+<main>
+
+<section class="checkout-section">
+
+
+    <div class="checkout-heading">
+
+        <span class="section-label">
+            VORTEX OFFICIAL STORE
+        </span>
+
+        <h1>
+            CHECK<em>OUT</em>
+        </h1>
+
+        <p>
+            COMPLETE YOUR ORDER.
+            REPRESENT THE LEGACY.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         CHECKOUT GRID
+    ================================================= -->
+
+    <div class="checkout-layout">
+
+
+        <!-- =================================================
+             LEFT SIDE
+        ================================================= -->
+
+        <div class="checkout-main-column">
+
+
+            <!-- CUSTOMER -->
+
+            <div class="checkout-card">
+
+                <div class="checkout-card-header">
+
+                    <span>
+                        01
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            CUSTOMER INFORMATION
+                        </h2>
+
+                        <p>
+                            Enter your contact information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="checkout-form-grid">
+
+                    <div class="checkout-input">
+
+                        <label>
+                            FIRST NAME
+                        </label>
+
+                        <input
+                            type="text"
+                            id="firstName"
+                            required
+                            placeholder="First name"
+                        >
+
+                    </div>
+
+
+                    <div class="checkout-input">
+
+                        <label>
+                            LAST NAME
+                        </label>
+
+                        <input
+                            type="text"
+                            id="lastName"
+                            required
+                            placeholder="Last name"
+                        >
+
+                    </div>
+
+
+                    <div class="checkout-input full">
+
+                        <label>
+                            EMAIL ADDRESS
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            required
+                            placeholder="you@example.com"
+                        >
+
+                    </div>
+
+
+                    <div class="checkout-input full">
+
+                        <label>
+                            PHONE
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="+216 XX XXX XXX"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SHIPPING -->
+
+            <div class="checkout-card">
+
+                <div class="checkout-card-header">
+
+                    <span>
+                        02
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            SHIPPING ADDRESS
+                        </h2>
+
+                        <p>
+                            Where should we send your order?
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="checkout-form-grid">
+
+                    <div class="checkout-input full">
+
+                        <label>
+                            ADDRESS
+                        </label>
+
+                        <input
+                            type="text"
+                            id="address"
+                            required
+                            placeholder="Street address"
+                        >
+
+                    </div>
+
+
+                    <div class="checkout-input">
+
+                        <label>
+                            CITY
+                        </label>
+
+                        <input
+                            type="text"
+                            id="city"
+                            required
+                            placeholder="City"
+                        >
+
+                    </div>
+
+
+                    <div class="checkout-input">
+
+                        <label>
+                            POSTAL CODE
+                        </label>
+
+                        <input
+                            type="text"
+                            id="postalCode"
+                            placeholder="Postal code"
+                        >
+
+                    </div>
+
+
+                    <div class="checkout-input full">
+
+                        <label>
+                            COUNTRY
+                        </label>
+
+                        <select id="country">
+
+                            <option value="">
+                                Select country
+                            </option>
+
+                            <option value="Tunisia">
+                                Tunisia
+                            </option>
+
+                            <option value="France">
+                                France
+                            </option>
+
+                            <option value="Germany">
+                                Germany
+                            </option>
+
+                            <option value="Italy">
+                                Italy
+                            </option>
+
+                            <option value="Spain">
+                                Spain
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PAYMENT -->
+
+            <div class="checkout-card">
+
+                <div class="checkout-card-header">
+
+                    <span>
+                        03
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            PAYMENT METHOD
+                        </h2>
+
+                        <p>
+                            Select your preferred payment method.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="payment-methods">
+
+
+                    <label class="payment-method active">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="card"
+                            checked
+                        >
+
+                        <div class="payment-icon">
+                            💳
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                CARD
+                            </strong>
+
+                            <p>
+                                Credit / Debit Card
+                            </p>
+
+                        </div>
+
+                        <span class="payment-check">
+                            ✓
+                        </span>
+
+                    </label>
+
+
+                    <label class="payment-method">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="cash"
+                        >
+
+                        <div class="payment-icon">
+                            💵
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                CASH ON DELIVERY
+                            </strong>
+
+                            <p>
+                                Pay when your order arrives
+                            </p>
+
+                        </div>
+
+                        <span class="payment-check">
+                            ✓
+                        </span>
+
+                    </label>
+
+
+                    <label class="payment-method">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="demo"
+                        >
+
+                        <div class="payment-icon">
+                            🧪
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                DEMO PAYMENT
+                            </strong>
+
+                            <p>
+                                For testing the checkout UI
+                            </p>
+
+                        </div>
+
+                        <span class="payment-check">
+                            ✓
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- CARD UI -->
+
+                <div
+                    class="demo-payment-box"
+                    id="cardPaymentBox"
+                >
+
+                    <div class="demo-payment-warning">
+
+                        <span>
+                            DEMO
+                        </span>
+
+                        <p>
+                            Real payment processing is not
+                            connected yet.
+                        </p>
+
+                    </div>
+
+
+                    <div class="checkout-input">
+
+                        <label>
+                            CARDHOLDER NAME
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="Demo payment"
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             RIGHT SIDE — ORDER
+        ================================================= -->
+
+        <aside class="order-summary">
+
+
+            <div class="order-summary-header">
+
+                <div>
+
+                    <span>
+                        YOUR ORDER
+                    </span>
+
+                    <h2>
+                        ORDER SUMMARY
+                    </h2>
+
+                </div>
+
+                <div class="order-count">
+                    <span id="checkoutItemCount">
+                        0
+                    </span>
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCTS -->
+
+            <div
+                class="checkout-products"
+                id="checkoutProducts"
+            >
+
+                <div class="checkout-empty">
+
+                    <span>
+                        🛒
+                    </span>
+
+                    <p>
+                        Your cart is empty.
+                    </p>
+
+                    <a href="shop.html">
+                        RETURN TO SHOP →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROMO -->
+
+            <div class="checkout-promo">
+
+                <label>
+                    PROMO CODE
+                </label>
+
+                <div>
+
+                    <input
+                        type="text"
+                        id="checkoutPromo"
+                        placeholder="VORTEX10"
+                    >
+
+                    <button
+                        id="checkoutApplyPromo"
+                        type="button"
+                    >
+                        APPLY
+                    </button>
+
+                </div>
+
+                <small id="promoMessage"></small>
+
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <div class="order-totals">
+
+                <div>
+
+                    <span>
+                        SUBTOTAL
+                    </span>
+
+                    <strong id="checkoutSubtotal">
+                        €0.00
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        SHIPPING
+                    </span>
+
+                    <strong id="checkoutShipping">
+                        €0.00
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        DISCOUNT
+                    </span>
+
+                    <strong
+                        class="discount"
+                        id="checkoutDiscount"
+                    >
+                        -€0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="final-total">
+
+                    <span>
+                        TOTAL
+                    </span>
+
+                    <strong id="checkoutGrandTotal">
+                        €0.00
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="placeOrderButton"
+                class="place-order-btn"
+            >
+                PLACE ORDER
+                <span>
+                    →
+                </span>
+            </button>
+
+
+            <a
+                href="shop.html"
+                class="continue-shopping"
+            >
+                ← CONTINUE SHOPPING
+            </a>
+
+
+            <div class="checkout-security">
+
+                <span>
+                    🔒
+                </span>
+
+                <p>
+                    SECURE CHECKOUT<br>
+                    <small>
+                        Your information stays on this device
+                        in this demo.
+                    </small>
+                </p>
+
+            </div>
+
+
+        </aside>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SUCCESS MODAL
+===================================================== -->
+
+<div
+    class="order-success-overlay"
+    id="orderSuccess"
+>
+
+    <div class="order-success">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <span class="section-label">
+            VORTEX STORE
+        </span>
+
+        <h2>
+            ORDER RECEIVED
+        </h2>
+
+        <p>
+            Thank you for supporting VORTEX.
+        </p>
+
+        <div class="order-number-box">
+
+            <span>
+                ORDER NUMBER
+            </span>
+
+            <strong id="successOrderNumber">
+                VTX-000000
+            </strong>
+
+        </div>
+
+        <p class="success-demo-text">
+            This is a frontend demo. No real payment
+            was processed.
+        </p>
+
+        <a
+            href="shop.html"
+            class="success-button"
+        >
+            BACK TO SHOP →
+        </a>
+
+    </div>
+
+</div>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <a href="index.html" class="logo">
+        <span>V</span> VORTEX
+    </a>
+
+    <p>
+        © 2026 VORTEX ESPORTS.
+        ALL RIGHTS RESERVED.
+    </p>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

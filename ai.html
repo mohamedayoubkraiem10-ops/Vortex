@@ -95,6 +95,7 @@
         padding: 11px 15px;
         font-size: 9px;
         font-weight: 900;
+        cursor: pointer;
       }
       .menu {
         display: none;
@@ -133,6 +134,7 @@
         color: #ff3038;
         font-weight: 900;
         letter-spacing: 2px;
+        cursor: pointer;
       }
       .status i {
         display: inline-block;
@@ -219,28 +221,6 @@
       .core b {
         font: 900 65px "Barlow Condensed";
       }
-      .float {
-        position: absolute;
-        background: #111;
-        border: 1px solid #292929;
-        padding: 15px;
-      }
-      .float small {
-        display: block;
-        color: #666;
-        font-size: 8px;
-      }
-      .float strong {
-        font: 900 27px "Barlow Condensed";
-      }
-      .f1 {
-        right: 0;
-        top: 55px;
-      }
-      .f2 {
-        left: 0;
-        bottom: 45px;
-      }
       .metrics {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -249,15 +229,6 @@
       .metrics div {
         padding: 24px 7%;
         border-right: 1px solid #222;
-      }
-      .metrics b {
-        font: 900 28px "Barlow Condensed";
-        display: block;
-      }
-      .metrics span {
-        color: #666;
-        font-size: 8px;
-        letter-spacing: 1px;
       }
       .section {
         padding: 90px 7%;
@@ -337,9 +308,9 @@
       }
       .creditbar i {
         display: block;
-        width: 72%;
         height: 100%;
         background: #ff3038;
+        transition: width 0.4s;
       }
       .panelarea {
         padding: 32px;
@@ -353,6 +324,9 @@
       .paneltop {
         display: flex;
         justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 10px;
       }
       .paneltop small {
         color: #ff3038;
@@ -367,6 +341,23 @@
       .ready {
         color: #43e991;
         font-size: 9px;
+      }
+      .hint {
+        color: #555;
+        font-size: 9px;
+        margin-top: 14px;
+        line-height: 1.6;
+      }
+      .hint code {
+        color: #999;
+      }
+      .loading-note {
+        color: #666;
+        font-size: 10px;
+        grid-column: 1/-1;
+      }
+      .loading-note.error {
+        color: #ff6b6b;
       }
       .upload {
         min-height: 260px;
@@ -402,6 +393,7 @@
         padding: 12px 20px;
         font-size: 9px;
         font-weight: 900;
+        cursor: pointer;
       }
       .file {
         font-size: 10px;
@@ -423,7 +415,9 @@
       .form input,
       .search input,
       .search select,
-      .chat input {
+      .chat input,
+      .modal input,
+      .modal select {
         width: 100%;
         background: #0a0a0a;
         color: #fff;
@@ -516,6 +510,7 @@
         border: 0;
         padding: 0 20px;
         font-weight: 900;
+        cursor: pointer;
       }
       .scout article {
         position: relative;
@@ -564,9 +559,9 @@
       }
       .predbar i {
         display: block;
-        width: 78%;
         height: 100%;
         background: #ff3038;
+        transition: width 0.5s;
       }
       .kpis {
         grid-template-columns: repeat(4, 1fr);
@@ -609,6 +604,7 @@
         padding: 10px;
         font-size: 8px;
         font-weight: 900;
+        cursor: pointer;
       }
       .plan.pro {
         border-color: #ff3038;
@@ -621,10 +617,11 @@
       }
       .api div {
         display: grid;
-        grid-template-columns: 55px 1fr auto;
+        grid-template-columns: 75px 1fr auto;
         gap: 10px;
         padding: 16px;
         border-bottom: 1px solid #222;
+        align-items: center;
       }
       .api span {
         color: #ff3038;
@@ -640,9 +637,27 @@
         color: #fff;
         border: 1px solid #333;
         padding: 6px;
+        cursor: pointer;
+      }
+      .chatctrls {
+        display: flex;
+        gap: 8px;
+      }
+      .chatctrl {
+        background: #111;
+        color: #999;
+        border: 1px solid #292929;
+        padding: 8px 12px;
+        font-size: 8px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .chatctrl:hover {
+        color: #fff;
+        border-color: #444;
       }
       .chatbox {
-        height: 330px;
+        height: 380px;
         border: 1px solid #292929;
         padding: 18px;
         overflow: auto;
@@ -657,9 +672,129 @@
       .msg b {
         color: #ff3038;
       }
+      .msg-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+      .avatar {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: grid;
+        place-content: center;
+        font: 900 9px "Barlow Condensed";
+        color: #fff;
+      }
+      .avatar-ai {
+        background: #ff3038;
+      }
+      .avatar-user {
+        background: #333;
+      }
+      .msg-time {
+        margin-left: auto;
+        color: #444;
+        font-size: 8px;
+      }
+      .msg-body {
+        line-height: 1.8;
+        font-size: 11px;
+        color: #ccc;
+      }
+      .msg-body h3,
+      .msg-body h4 {
+        font-family: "Barlow Condensed";
+        margin: 10px 0 6px;
+        color: #fff;
+      }
+      .msg-body p {
+        margin: 6px 0;
+      }
+      .msg-body ol {
+        margin: 8px 0 8px 18px;
+      }
+      .msg-body code {
+        background: #1a1a1a;
+        border: 1px solid #292929;
+        padding: 1px 5px;
+        font-size: 10px;
+        color: #ff9a3d;
+      }
+      .codeblock {
+        background: #0d0d0d;
+        border: 1px solid #292929;
+        padding: 12px;
+        overflow-x: auto;
+        margin: 8px 0;
+        font-size: 10px;
+      }
+      .msg-user .msg-body {
+        color: #eee;
+      }
+      .msg-error {
+        color: #ff6b6b;
+      }
+      .msg-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .msg-actions button {
+        background: #151515;
+        color: #999;
+        border: 1px solid #292929;
+        padding: 5px 10px;
+        font-size: 8px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .msg-actions button:hover {
+        color: #fff;
+      }
+      .msg-retry {
+        background: #151515;
+        color: #ff6b6b;
+        border: 1px solid #402020;
+        padding: 5px 10px;
+        font-size: 8px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .generating {
+        color: #ff3038;
+        font-size: 9px;
+        font-weight: 900;
+        letter-spacing: 1px;
+      }
+      .dots::after {
+        content: "";
+        animation: dotpulse 1.2s infinite;
+      }
+      @keyframes dotpulse {
+        0% {
+          content: ".";
+        }
+        33% {
+          content: "..";
+        }
+        66% {
+          content: "...";
+        }
+      }
+      .cursor {
+        animation: blink 0.9s steps(1) infinite;
+        color: #ff3038;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
       .chat {
         display: grid;
-        grid-template-columns: 1fr auto;
+        grid-template-columns: 1fr auto auto;
         margin-top: 10px;
       }
       .chat button {
@@ -668,6 +803,16 @@
         border: 0;
         padding: 0 20px;
         font-weight: 900;
+        cursor: pointer;
+      }
+      .chat button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .stopbtn {
+        background: #1a1a1a !important;
+        color: #ff3038 !important;
+        border: 1px solid #ff3038 !important;
       }
       .features h2 {
         margin: 12px 0 30px;
@@ -719,6 +864,72 @@
         justify-content: space-between;
         color: #555;
         font-size: 9px;
+      }
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 500;
+        display: none;
+        place-items: center;
+        padding: 20px;
+      }
+      .modal-backdrop.show {
+        display: grid;
+      }
+      .modal {
+        background: #0b0b0b;
+        border: 1px solid #292929;
+        max-width: 440px;
+        width: 100%;
+        padding: 28px;
+      }
+      .modal h3 {
+        font: 900 26px "Barlow Condensed";
+        margin-bottom: 6px;
+      }
+      .modal p {
+        color: #777;
+        font-size: 10px;
+        line-height: 1.7;
+        margin-bottom: 16px;
+      }
+      .modal label {
+        color: #666;
+        font-size: 8px;
+        font-weight: 900;
+        display: block;
+        margin-top: 14px;
+      }
+      .modal-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 22px;
+      }
+      .modal-actions button {
+        flex: 1;
+        padding: 14px;
+        border: 0;
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .modal-save {
+        background: #ff3038;
+        color: #fff;
+      }
+      .modal-close {
+        background: #1a1a1a;
+        color: #fff;
+        border: 1px solid #292929 !important;
+      }
+      .modal-note {
+        background: #150c0c;
+        border: 1px solid #3a1e1e;
+        padding: 12px;
+        font-size: 9px;
+        color: #ff9a3d;
+        line-height: 1.6;
+        margin-top: 14px;
       }
       @media (max-width: 900px) {
         .nav,
@@ -790,6 +1001,19 @@
         .footer > * {
           margin-bottom: 10px;
         }
+        .panel#panel-chat {
+          padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+        .chat {
+          grid-template-columns: 1fr auto;
+          grid-template-rows: auto auto;
+          position: sticky;
+          bottom: env(safe-area-inset-bottom, 0px);
+          background: #0b0b0b;
+        }
+        .stopbtn {
+          grid-column: 1/-1;
+        }
       }
     </style>
   </head>
@@ -798,26 +1022,21 @@
     <header class="header">
       <a class="logo" href="index.html"><span>V</span> VORTEX</a>
       <nav class="nav">
-        <a href="index.html">HOME</a><a href="matches.html">MATCHES</a
-        ><a href="roster.html">ROSTER</a><a href="news.html">NEWS</a
-        ><a class="active" href="ai.html">VORTEX AI</a
-        ><a href="shop.html">SHOP</a>
+        <a href="index.html" class="active">HOME</a><a href="matches.html">MATCHES</a
+        ><a href="roster.html">ROSTER</a><a href="news.html">NEWS</a><a href="shop.html">SHOP</a>
       </nav>
-      <button
-        class="join"
-        onclick="alert('Account system will connect to the backend.')"
-      >
-        AI ACCOUNT ↗</button
+      <button class="join" id="opensettings">⚙ AI SETTINGS</button
       ><button class="menu">☰</button>
     </header>
     <main>
       <section class="hero">
         <div>
-          <span class="status"><i></i> VORTEX AI · SYSTEM ONLINE</span>
+          <span class="status" id="statusdot"><i></i> CHECKING STATUS…</span>
           <h1>TURN DATA INTO<br /><em>ADVANTAGE.</em></h1>
           <p>
             Analyze matches, scout players, predict outcomes and give your
-            organization an AI-powered competitive edge.
+            organization an AI-powered competitive edge. Runs entirely from this
+            one file — no install, no server.
           </p>
           <div class="actions">
             <button
@@ -828,8 +1047,9 @@
                   .scrollIntoView({ behavior: 'smooth' })
               "
             >
-              START ANALYSIS ↗</button
-            ><button
+              START ANALYSIS ↗
+            </button>
+            <button
               class="dark"
               onclick="
                 document
@@ -846,39 +1066,43 @@
           <div class="ring r2"></div>
           <div class="ring r3"></div>
           <div class="core"><b>V</b></div>
-          
         </div>
       </section>
-      <div class="metrics">
-        
-      </div>
+      <div class="metrics"></div>
       <section class="section" id="workspace">
         <div class="section-title">
           <div>
             <span class="eyebrow">VORTEX AI ENGINE</span>
             <h2>COMMAND <em>CENTER.</em></h2>
           </div>
-          <small style="color: #44e98f">● READY</small>
         </div>
         <div class="dashboard">
           <aside class="sidebar">
             <div class="side-head"><span>V</span> VORTEX AI</div>
             <button class="tab active" data-panel="analysis">
-              ✦ &nbsp; MATCH ANALYSIS</button
-            ><button class="tab" data-panel="players">
-              ◇ &nbsp; PLAYER ANALYTICS</button
-            ><button class="tab" data-panel="scouting">◈ &nbsp; SCOUTING</button
-            ><button class="tab" data-panel="prediction">
-              ◉ &nbsp; MATCH PREDICTION</button
-            ><button class="tab" data-panel="chat">▣ &nbsp; AI CHAT</button
-            ><button class="tab" data-panel="team">
-              ◆ &nbsp; TEAM DASHBOARD</button
-            ><button class="tab" data-panel="billing">
-              ▤ &nbsp; SUBSCRIPTIONS</button
-            ><button class="tab" data-panel="api">⌘ &nbsp; API</button>
+              ✦ &nbsp; MATCH ANALYSIS
+            </button>
+            <button class="tab" data-panel="players">
+              ◇ &nbsp; PLAYER ANALYTICS
+            </button>
+            <button class="tab" data-panel="scouting">◈ &nbsp; SCOUTING</button>
+            <button class="tab" data-panel="prediction">
+              ◉ &nbsp; MATCH PREDICTION
+            </button>
+            <button class="tab" data-panel="chat">▣ &nbsp; AI CHAT</button>
+            <button class="tab" data-panel="team">
+              ◆ &nbsp; TEAM DASHBOARD
+            </button>
+            <button class="tab" data-panel="billing">
+              ▤ &nbsp; SUBSCRIPTIONS
+            </button>
+            <button class="tab" data-panel="api">⌘ &nbsp; ABOUT</button>
             <div class="credits">
-              AI CREDITS<strong id="credits">72 / 100</strong>
-              <div class="creditbar"><i id="creditbar"></i></div>
+              STORAGE<strong id="credits">LOCAL BROWSER ONLY</strong>
+              <div class="creditbar"><i style="width: 100%"></i></div>
+              <small style="display: block; margin-top: 8px; color: #444"
+                >No cloud account — everything runs in this tab.</small
+              >
             </div>
           </aside>
           <div class="panelarea">
@@ -891,7 +1115,12 @@
                 <span class="ready">● READY</span>
               </div>
               <div class="upload" id="upload">
-                <input id="file" type="file" accept="video/*" hidden />
+                <input
+                  id="file"
+                  type="file"
+                  accept="video/mp4,video/webm,video/quicktime"
+                  hidden
+                />
                 <div class="up">↑</div>
                 <h4>DROP YOUR GAMEPLAY</h4>
                 <p>Drag & drop video here or select a file.</p>
@@ -907,13 +1136,15 @@
                     <option>FORTNITE</option>
                     <option>MARVEL RIVALS</option>
                   </select></label
-                ><label
+                >
+                <label
                   >ANALYSIS<select>
                     <option>FULL MATCH</option>
                     <option>ROUND ANALYSIS</option>
                     <option>PLAYER PERFORMANCE</option>
                   </select></label
-                ><label
+                >
+                <label
                   >QUALITY<select>
                     <option>1080P</option>
                     <option>1440P</option>
@@ -923,7 +1154,14 @@
               </div>
               <button class="analyze" id="analyze">✦ ANALYZE GAMEPLAY →</button>
               <div class="result" id="result"></div>
+              <p class="hint">
+                Honest limit: a browser tab can't run computer-vision video
+                analysis. Selecting a file here always reports
+                <b>COMING SOON</b> — plug in a real CV service to make this
+                live.
+              </p>
             </div>
+
             <div class="panel" id="panel-players">
               <div class="paneltop">
                 <div>
@@ -931,30 +1169,14 @@
                   <h3>PLAYER <em>ANALYTICS.</em></h3>
                 </div>
               </div>
-              <div class="cards">
-                <article class="card">
-                  <small>01 · IGL / DUELIST</small>
-                  <h4>AXEL</h4>
-                  <div class="score">94.2</div>
-                  <div class="bar"><i style="width: 94%"></i></div>
-                  <p>Impact 94 · Clutch 87% · Consistency 96%</p>
-                </article>
-                <article class="card">
-                  <small>02 · ENTRY FRAGGER</small>
-                  <h4>NOVA</h4>
-                  <div class="score">91.7</div>
-                  <div class="bar"><i style="width: 91%"></i></div>
-                  <p>Impact 92 · ACS 248 · First duel +14%</p>
-                </article>
-                <article class="card">
-                  <small>03 · SNIPER</small>
-                  <h4>KRYPT</h4>
-                  <div class="score">89.4</div>
-                  <div class="bar"><i style="width: 89%"></i></div>
-                  <p>Impact 89 · K/D 1.31 · Opening picks +21%</p>
-                </article>
-              </div>
+              <div class="cards" id="playercards"></div>
+              <p class="hint">
+                Reads from the in-browser VORTEX dataset
+                (<code>VORTEX_DATA.players</code>) — edit that array to update
+                the roster.
+              </p>
             </div>
+
             <div class="panel" id="panel-scouting">
               <div class="paneltop">
                 <div>
@@ -966,37 +1188,23 @@
                 <input
                   id="scoutq"
                   placeholder="Search player, role or region..."
-                /><select>
+                /><select id="scoutrole">
                   <option>ALL ROLES</option>
                   <option>DUELIST</option>
                   <option>IGL</option>
-                  <option>SUPPORT</option></select
+                  <option>SUPPORT</option>
+                  <option>FLEX</option>
+                  <option>SNIPER</option>
+                  <option>ENTRY FRAGGER</option></select
                 ><button id="scan">SCAN →</button>
               </div>
-              <div class="scout">
-                <article>
-                  <small>TUNISIA · DUELIST</small>
-                  <h4>RAVENX</h4>
-                  <strong>92.8</strong>
-                  <p>High entry potential · Aggressive</p>
-                  <span class="tag">HIGH VALUE</span>
-                </article>
-                <article>
-                  <small>FRANCE · FLEX</small>
-                  <h4>LYNX</h4>
-                  <strong>90.6</strong>
-                  <p>Excellent utility · Team player</p>
-                  <span class="tag">WATCHLIST</span>
-                </article>
-                <article>
-                  <small>MOROCCO · IGL</small>
-                  <h4>NOIR</h4>
-                  <strong>88.9</strong>
-                  <p>Strong leadership · Tactical</p>
-                  <span class="tag">RISING</span>
-                </article>
-              </div>
+              <div class="scout" id="scoutresults"></div>
+              <p class="hint">
+                Client-side keyword filter over the same dataset — no network
+                call.
+              </p>
             </div>
+
             <div class="panel" id="panel-prediction">
               <div class="paneltop">
                 <div>
@@ -1011,36 +1219,46 @@
               </div>
               <button class="analyze" id="predict">◉ RUN PREDICTION →</button>
               <div class="pred">
-                <strong id="pa">78%</strong>
-                <div class="predbar"><i id="pb"></i></div>
-                <strong id="pc">22%</strong>
+                <strong id="pa">—</strong>
+                <div class="predbar"><i id="pb" style="width: 0%"></i></div>
+                <strong id="pc">—</strong>
               </div>
-              <p style="color: #555; font-size: 9px; margin-top: 15px">
-                Demo prediction UI. Connect a real statistical/ML backend before
-                commercial use.
+              <p
+                id="prednote"
+                style="color: #555; font-size: 9px; margin-top: 15px"
+              >
+                Weighted estimate from stored win rate, map win rate, recent
+                form and head-to-head record — no randomness.
               </p>
             </div>
+
             <div class="panel" id="panel-chat">
               <div class="paneltop">
                 <div>
                   <small>VORTEX INTELLIGENCE</small>
                   <h3>ASK <em>VORTEX AI.</em></h3>
                 </div>
+                <div class="chatctrls">
+                  <button class="chatctrl" id="newchat">NEW CHAT</button
+                  ><button class="chatctrl" id="clearchat">CLEAR CHAT</button>
+                </div>
               </div>
               <div class="chatbox" id="chatbox">
                 <div class="msg">
-                  <b>VORTEX AI</b><br />Ready. Ask about a match, player,
-                  strategy or scouting report.
+                  <b>VORTEX AI</b><br />Ready. Add your Anthropic API key in
+                  <b>AI SETTINGS</b> (top right) to start chatting, then ask
+                  about a match, player, strategy or scouting report.
                 </div>
               </div>
               <div class="chat">
                 <input id="chatinput" placeholder="Ask VORTEX AI..." /><button
                   id="send"
                 >
-                  SEND ↗
-                </button>
+                  SEND ↗</button
+                ><button id="stopgen" class="stopbtn" hidden>■ STOP</button>
               </div>
             </div>
+
             <div class="panel" id="panel-team">
               <div class="paneltop">
                 <div>
@@ -1048,30 +1266,14 @@
                   <h3>TEAM <em>DASHBOARD.</em></h3>
                 </div>
               </div>
-              <div class="kpis">
-                <div class="kpi">
-                  <small>WIN RATE</small><strong>86%</strong><span>+4.2%</span>
-                </div>
-                <div class="kpi">
-                  <small>AVG RATING</small><strong>91.4</strong
-                  ><span>+2.8</span>
-                </div>
-                <div class="kpi">
-                  <small>MAP WIN</small><strong>78%</strong><span>+6.1%</span>
-                </div>
-                <div class="kpi">
-                  <small>SCOUT SCORE</small><strong>A+</strong
-                  ><span>TOP TIER</span>
-                </div>
-              </div>
-              <div class="chart">
-                <i style="height: 45%"></i><i style="height: 62%"></i
-                ><i style="height: 54%"></i><i style="height: 73%"></i
-                ><i style="height: 66%"></i><i style="height: 81%"></i
-                ><i style="height: 76%"></i><i style="height: 91%"></i
-                ><i style="height: 84%"></i><i style="height: 96%"></i>
-              </div>
+              <div class="kpis" id="kpis"></div>
+              <div class="chart" id="chart"></div>
+              <p class="hint">
+                Computed from <code>VORTEX_DATA.teams</code> and
+                <code>VORTEX_DATA.matches</code>.
+              </p>
             </div>
+
             <div class="panel" id="panel-billing">
               <div class="paneltop">
                 <div>
@@ -1101,7 +1303,7 @@
                   <button
                     onclick="
                       alert(
-                        'Connect this button to Stripe or another payment provider.',
+                        'This is a static single-file build — connect Stripe or another payment provider to make billing real.',
                       )
                     "
                   >
@@ -1120,39 +1322,60 @@
                 </article>
               </div>
             </div>
+
             <div class="panel" id="panel-api">
               <div class="paneltop">
                 <div>
-                  <small>DEVELOPER PLATFORM</small>
-                  <h3>VORTEX <em>API.</em></h3>
+                  <small>HOW THIS BUILD WORKS</small>
+                  <h3>SINGLE <em>FILE.</em></h3>
                 </div>
               </div>
               <div class="api">
                 <div>
-                  <span>GET</span><code>/api/v1/players</code
-                  ><button onclick="copyText('/api/v1/players')">COPY</button>
+                  <span>DATA</span><code>VORTEX_DATA</code
+                  ><button class="api-copy" data-copy="VORTEX_DATA">
+                    COPY
+                  </button>
                 </div>
                 <div>
-                  <span>POST</span><code>/api/v1/analyze</code
-                  ><button onclick="copyText('/api/v1/analyze')">COPY</button>
+                  <span>CLIENT</span><code>VortexAI.chatStream()</code
+                  ><button class="api-copy" data-copy="VortexAI.chatStream()">
+                    COPY
+                  </button>
                 </div>
                 <div>
-                  <span>GET</span><code>/api/v1/matches/{id}/prediction</code
+                  <span>CLIENT</span><code>Prediction.predict(a,b)</code
+                  ><button class="api-copy" data-copy="Prediction.predict(a,b)">
+                    COPY
+                  </button>
+                </div>
+                <div>
+                  <span>ENDPOINT</span><code>api.anthropic.com/v1/messages</code
                   ><button
-                    onclick="copyText('/api/v1/matches/{id}/prediction')"
+                    class="api-copy"
+                    data-copy="https://api.anthropic.com/v1/messages"
                   >
                     COPY
                   </button>
                 </div>
               </div>
               <p style="color: #555; font-size: 9px; margin-top: 15px">
-                These are frontend API placeholders. The real API, database,
-                authentication and model processing belong in the backend.
+                This page has no server. Player/scouting/prediction data lives
+                in a JS object in this file. AI Chat calls the Anthropic API
+                <b>directly from your browser</b> using a key you paste into AI
+                SETTINGS — it's kept only in this browser's
+                <code>localStorage</code> and is sent only to
+                <code>api.anthropic.com</code>, never anywhere else. That also
+                means: don't share this file with your key already filled in,
+                and don't use this pattern for a public multi-visitor website —
+                for that, put the key behind a real backend instead (see the
+                multi-file build).
               </p>
             </div>
           </div>
         </div>
       </section>
+
       <section class="section features" id="features">
         <span class="eyebrow">THE AI ADVANTAGE</span>
         <h2>BUILT FOR <em>ESPORTS.</em></h2>
@@ -1187,8 +1410,8 @@
         <span class="eyebrow">VORTEX AI</span>
         <h2>BUILD THE <em>ADVANTAGE.</em></h2>
         <p>
-          Start with a powerful frontend dashboard, then connect your backend,
-          database and real AI models as the business grows.
+          One HTML file, your own API key, zero install. Open the AI Settings
+          panel to connect VORTEX AI Chat.
         </p>
         <button
           class="red"
@@ -1203,76 +1426,933 @@
       </section>
     </main>
     <footer class="footer">
-      <a class="logo" href="index.html"><span>V</span> VORTEX</a>
+      <a class="logo" href="#"><span>V</span> VORTEX</a>
       <p>© 2026 VORTEX ESPORTS · VORTEX AI</p>
-      <p>ADMIN · API · ACCOUNTS · DATABASE</p>
+      <p>SINGLE-FILE BUILD</p>
     </footer>
+
+    <div class="modal-backdrop" id="settingsBackdrop">
+      <div class="modal">
+        <h3>AI SETTINGS</h3>
+        <p>
+          VORTEX AI Chat calls Anthropic's API directly from this browser tab.
+          Paste your own API key below — it's saved only in this browser's local
+          storage and is never written into this file or sent anywhere except
+          <code>api.anthropic.com</code>.
+        </p>
+        <label>ANTHROPIC API KEY</label>
+        <input
+          id="apikeyinput"
+          type="password"
+          placeholder="sk-ant-..."
+          autocomplete="off"
+        />
+        <label>MODEL (optional)</label>
+        <input id="modelinput" placeholder="claude-sonnet-4-6" />
+        <div class="modal-note">
+          Get a key at console.anthropic.com. Anyone with access to this browser
+          profile (devtools, extensions) could read a saved key — don't use this
+          pattern on a shared or public computer.
+        </div>
+        <div class="modal-actions">
+          <button class="modal-close" id="closesettings">CLOSE</button>
+          <button class="modal-save" id="savesettings">SAVE KEY</button>
+        </div>
+      </div>
+    </div>
+
     <script>
-      const $ = (s) => document.querySelector(s),
-        $$ = (s) => document.querySelectorAll(s);
-      setTimeout(() => $("#loader").classList.add("hide"), 700);
-      $$(".tab").forEach(
-        (t) =>
-          (t.onclick = () => {
-            $$(".tab").forEach((x) => x.classList.remove("active"));
-            $$(".panel").forEach((x) => x.classList.remove("active"));
-            t.classList.add("active");
-            $("#panel-" + t.dataset.panel).classList.add("active");
+      /* ============================================================
+   VORTEX_DATA — the in-browser "database". Edit these arrays to
+   change what Player Analytics / Scouting / Prediction / Team
+   Dashboard show. No server, no fetch, no network call for any
+   of this — it's just JS.
+   ============================================================ */
+      const VORTEX_DATA = {
+        players: [
+          {
+            id: "p1",
+            name: "AXEL",
+            role: "IGL / Duelist",
+            team: "VORTEX",
+            region: "Tunisia",
+            age: 22,
+            rating: 94.2,
+            impact: 94,
+            consistency: 96,
+            clutchPct: 87,
+          },
+          {
+            id: "p2",
+            name: "NOVA",
+            role: "Entry Fragger",
+            team: "VORTEX",
+            region: "France",
+            age: 20,
+            rating: 91.7,
+            impact: 92,
+            acs: 248,
+            firstDuelPct: 14,
+          },
+          {
+            id: "p3",
+            name: "KRYPT",
+            role: "Sniper",
+            team: "VORTEX",
+            region: "Morocco",
+            age: 23,
+            rating: 89.4,
+            impact: 89,
+            kd: 1.31,
+            openingPicksPct: 21,
+          },
+          {
+            id: "p4",
+            name: "RAVENX",
+            role: "Duelist",
+            team: "Free Agent",
+            region: "Tunisia",
+            age: 19,
+            rating: 92.8,
+            impact: 90,
+            note: "High entry potential, aggressive playstyle",
+            tag: "HIGH VALUE",
+          },
+          {
+            id: "p5",
+            name: "LYNX",
+            role: "Flex",
+            team: "Free Agent",
+            region: "France",
+            age: 21,
+            rating: 90.6,
+            impact: 88,
+            note: "Excellent utility usage, team-first",
+            tag: "WATCHLIST",
+          },
+          {
+            id: "p6",
+            name: "NOIR",
+            role: "IGL",
+            team: "Free Agent",
+            region: "Morocco",
+            age: 24,
+            rating: 88.9,
+            impact: 85,
+            note: "Strong shotcalling and tactical IQ",
+            tag: "RISING",
+          },
+        ],
+        teams: [
+          {
+            id: "t1",
+            name: "VORTEX",
+            winRate: 0.86,
+            avgRating: 91.4,
+            mapWinRate: 0.78,
+            scoutGrade: "A+",
+            recentForm: [1, 1, 0, 1, 1],
+          },
+          {
+            id: "t2",
+            name: "PHANTOM",
+            winRate: 0.61,
+            avgRating: 84.1,
+            mapWinRate: 0.58,
+            scoutGrade: "B",
+            recentForm: [1, 0, 0, 1, 0],
+          },
+        ],
+        matches: [
+          {
+            id: "m1",
+            teamA: "VORTEX",
+            teamB: "PHANTOM",
+            date: "2026-09-12",
+            map: "Ascent",
+            scoreA: 13,
+            scoreB: 8,
+            result: "VORTEX win",
+          },
+          {
+            id: "m2",
+            teamA: "VORTEX",
+            teamB: "ECLIPSE",
+            date: "2026-09-05",
+            map: "Bind",
+            scoreA: 13,
+            scoreB: 11,
+            result: "VORTEX win",
+          },
+          {
+            id: "m3",
+            teamA: "PHANTOM",
+            teamB: "VORTEX",
+            date: "2026-08-27",
+            map: "Haven",
+            scoreA: 9,
+            scoreB: 13,
+            result: "VORTEX win",
+          },
+        ],
+        news: [
+          {
+            title: "VORTEX signs RAVENX to academy roster",
+            date: "2026-09-20",
+            summary:
+              "The Tunisian duelist joins the academy squad ahead of the next split.",
+          },
+          {
+            title: "VORTEX beats PHANTOM 13-8 on Ascent",
+            date: "2026-09-12",
+            summary:
+              "A dominant defensive half sealed the win in the regional qualifier.",
+          },
+        ],
+      };
+
+      /* ── Knowledge helpers (search/filter over VORTEX_DATA) ───────── */
+      const Knowledge = {
+        getTeam: (name) =>
+          VORTEX_DATA.teams.find(
+            (t) => t.name.toLowerCase() === String(name).toLowerCase(),
+          ) || null,
+        listPlayers({ role, region, team, minRating } = {}) {
+          let players = VORTEX_DATA.players;
+          if (role)
+            players = players.filter((p) =>
+              p.role.toLowerCase().includes(role.toLowerCase()),
+            );
+          if (region)
+            players = players.filter((p) =>
+              p.region.toLowerCase().includes(region.toLowerCase()),
+            );
+          if (team)
+            players = players.filter((p) =>
+              p.team.toLowerCase().includes(team.toLowerCase()),
+            );
+          if (minRating)
+            players = players.filter((p) => p.rating >= Number(minRating));
+          return players;
+        },
+        listMatches({ team } = {}) {
+          let matches = VORTEX_DATA.matches;
+          if (team)
+            matches = matches.filter(
+              (m) =>
+                m.teamA.toLowerCase() === team.toLowerCase() ||
+                m.teamB.toLowerCase() === team.toLowerCase(),
+            );
+          return matches;
+        },
+        search(query, limit = 5) {
+          const q = String(query || "").toLowerCase();
+          if (!q) return [];
+          const results = [];
+          for (const p of VORTEX_DATA.players) {
+            if (
+              `${p.name} ${p.role} ${p.team} ${p.region} ${p.note || ""}`
+                .toLowerCase()
+                .includes(q)
+            )
+              results.push(
+                `${p.name} — ${p.role}, ${p.team}, rating ${p.rating}.`,
+              );
+          }
+          for (const t of VORTEX_DATA.teams) {
+            if (t.name.toLowerCase().includes(q))
+              results.push(
+                `${t.name} — win rate ${(t.winRate * 100).toFixed(0)}%, avg rating ${t.avgRating}.`,
+              );
+          }
+          for (const m of VORTEX_DATA.matches) {
+            if (`${m.teamA} ${m.teamB} ${m.map}`.toLowerCase().includes(q))
+              results.push(
+                `${m.teamA} vs ${m.teamB} on ${m.map} (${m.date}): ${m.result}.`,
+              );
+          }
+          for (const n of VORTEX_DATA.news) {
+            if (`${n.title} ${n.summary}`.toLowerCase().includes(q))
+              results.push(`${n.title} — ${n.summary}`);
+          }
+          return results.slice(0, limit);
+        },
+      };
+
+      /* ── Prediction engine — weighted formula, no Math.random() ───── */
+      const Prediction = {
+        predict(teamAName, teamBName) {
+          const teamA = Knowledge.getTeam(teamAName),
+            teamB = Knowledge.getTeam(teamBName);
+          if (!teamA || !teamB) {
+            const missing = [
+              !teamA ? teamAName : null,
+              !teamB ? teamBName : null,
+            ].filter(Boolean);
+            throw new Error(
+              `No VORTEX statistics on file for: ${missing.join(", ")}.`,
+            );
+          }
+          const formRate = (t) =>
+            t.recentForm?.length
+              ? t.recentForm.filter((r) => r === 1).length / t.recentForm.length
+              : 0.5;
+          const h2hMatches = Knowledge.listMatches({ team: teamAName }).filter(
+            (m) =>
+              (m.teamA.toLowerCase() === teamAName.toLowerCase() &&
+                m.teamB.toLowerCase() === teamBName.toLowerCase()) ||
+              (m.teamB.toLowerCase() === teamAName.toLowerCase() &&
+                m.teamA.toLowerCase() === teamBName.toLowerCase()),
+          );
+          const h2h = h2hMatches.length
+            ? h2hMatches.filter((m) =>
+                (m.result || "")
+                  .toLowerCase()
+                  .includes(teamAName.toLowerCase()),
+              ).length / h2hMatches.length
+            : null;
+
+          const w = {
+            winRate: 0.35,
+            mapWinRate: 0.25,
+            recentForm: 0.25,
+            h2h: 0.15,
+          };
+          const factors = ["Overall win rate", "Map win rate", "Recent form"];
+          let aScore =
+            teamA.winRate * w.winRate +
+            teamA.mapWinRate * w.mapWinRate +
+            formRate(teamA) * w.recentForm;
+          let bScore =
+            teamB.winRate * w.winRate +
+            teamB.mapWinRate * w.mapWinRate +
+            formRate(teamB) * w.recentForm;
+          if (h2h !== null) {
+            aScore += h2h * w.h2h;
+            bScore += (1 - h2h) * w.h2h;
+            factors.push("Head-to-head record");
+          } else {
+            const r = w.h2h / 2;
+            aScore += r * ((teamA.winRate + teamA.mapWinRate) / 2);
+            bScore += r * ((teamB.winRate + teamB.mapWinRate) / 2);
+          }
+          const total = aScore + bScore || 1;
+          const teamAPct = Math.round((aScore / total) * 100);
+          const sampleSize =
+            (teamA.recentForm?.length || 0) +
+            (teamB.recentForm?.length || 0) +
+            (h2h !== null ? 3 : 0);
+          return {
+            teamA: teamAPct,
+            teamB: 100 - teamAPct,
+            confidence: Number(
+              Math.min(0.95, 0.4 + sampleSize * 0.03).toFixed(2),
+            ),
+            factors,
+            note: "Estimate based on available VORTEX statistics. Not a guarantee of outcome.",
+          };
+        },
+      };
+
+      /* ============================================================
+   VortexAI — calls the Anthropic API directly from the browser
+   using a key the person pastes into AI SETTINGS. Stored only in
+   localStorage("vortex_ai_key"). Never hardcoded, never sent
+   anywhere but api.anthropic.com.
+   ============================================================ */
+      const SYSTEM_PROMPT = `You are VORTEX AI, the official AI assistant of the VORTEX platform.
+
+You are an intelligent, professional esports and technology assistant.
+
+Your responsibilities include:
+- Gaming strategy
+- Esports analysis
+- Player development
+- Team strategy
+- PC hardware
+- Gaming optimization
+- Programming
+- Cybersecurity education
+- VORTEX platform assistance
+- General technical questions
+
+Give accurate, useful and clearly structured answers.
+Never pretend that you performed an action when you did not.
+Never invent statistics, players, matches, or VORTEX information.
+If information is unavailable, say so clearly.
+When the user asks about VORTEX, prioritize information provided in the "VORTEX KNOWLEDGE" context block over your own assumptions, and say so if you're relying on it.
+Adapt the complexity of your explanation to the user's level.
+Keep answers concise unless the user requests detailed explanations.
+
+You are VORTEX AI.`;
+
+      const VortexAI = (() => {
+        const KEY_STORAGE = "vortex_ai_key";
+        const MODEL_STORAGE = "vortex_ai_model";
+        const CONVO_STORAGE = "vortex_ai_conversation";
+
+        function getKey() {
+          return localStorage.getItem(KEY_STORAGE) || "";
+        }
+        function getModel() {
+          return localStorage.getItem(MODEL_STORAGE) || "claude-sonnet-4-6";
+        }
+        function isConfigured() {
+          return Boolean(getKey());
+        }
+
+        function getConversation() {
+          try {
+            return JSON.parse(localStorage.getItem(CONVO_STORAGE)) || [];
+          } catch (_) {
+            return [];
+          }
+        }
+        function setConversation(msgs) {
+          localStorage.setItem(CONVO_STORAGE, JSON.stringify(msgs.slice(-60)));
+        }
+        function clearConversation() {
+          localStorage.removeItem(CONVO_STORAGE);
+        }
+
+        function contextBlock(message) {
+          const hits = Knowledge.search(message, 5);
+          return hits.length
+            ? "VORTEX KNOWLEDGE:\n" + hits.map((h) => "- " + h).join("\n")
+            : null;
+        }
+
+        function headers() {
+          return {
+            "Content-Type": "application/json",
+            "x-api-key": getKey(),
+            "anthropic-version": "2023-06-01",
+            "anthropic-dangerous-direct-browser-access": "true",
+          };
+        }
+
+        function buildBody(message, stream) {
+          const history = getConversation().map((m) => ({
+            role: m.role,
+            content: m.content,
+          }));
+          const ctx = contextBlock(message);
+          return {
+            model: getModel(),
+            max_tokens: 1024,
+            system: ctx ? `${SYSTEM_PROMPT}\n\n${ctx}` : SYSTEM_PROMPT,
+            messages: [...history, { role: "user", content: message }],
+            stream: Boolean(stream),
+          };
+        }
+
+        async function send(message) {
+          if (!isConfigured()) {
+            const e = new Error(
+              "Add your Anthropic API key in AI SETTINGS first.",
+            );
+            e.needsKey = true;
+            throw e;
+          }
+          const res = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: headers(),
+            body: JSON.stringify(buildBody(message, false)),
+          });
+          if (!res.ok) throw await apiError(res);
+          const data = await res.json();
+          const reply = (data.content || [])
+            .filter((b) => b.type === "text")
+            .map((b) => b.text)
+            .join("\n")
+            .trim();
+          const convo = getConversation();
+          convo.push(
+            { role: "user", content: message },
+            { role: "assistant", content: reply },
+          );
+          setConversation(convo);
+          return reply;
+        }
+
+        async function stream(message, { onDelta, signal }) {
+          if (!isConfigured()) {
+            const e = new Error(
+              "Add your Anthropic API key in AI SETTINGS first.",
+            );
+            e.needsKey = true;
+            throw e;
+          }
+          const res = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: headers(),
+            body: JSON.stringify(buildBody(message, true)),
+            signal,
+          });
+          if (!res.ok || !res.body) throw await apiError(res);
+
+          const reader = res.body.getReader();
+          const decoder = new TextDecoder();
+          let buffer = "",
+            full = "";
+          while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            buffer += decoder.decode(value, { stream: true });
+            let idx;
+            while ((idx = buffer.indexOf("\n\n")) !== -1) {
+              const frame = buffer.slice(0, idx);
+              buffer = buffer.slice(idx + 2);
+              const dataLine = frame
+                .split("\n")
+                .find((l) => l.startsWith("data:"));
+              if (!dataLine) continue;
+              let evt;
+              try {
+                evt = JSON.parse(dataLine.replace("data:", "").trim());
+              } catch (_) {
+                continue;
+              }
+              if (
+                evt.type === "content_block_delta" &&
+                evt.delta &&
+                evt.delta.type === "text_delta"
+              ) {
+                full += evt.delta.text;
+                onDelta && onDelta(evt.delta.text);
+              } else if (evt.type === "error") {
+                throw new Error(
+                  evt.error?.message || "The AI service returned an error.",
+                );
+              }
+            }
+          }
+          const convo = getConversation();
+          convo.push(
+            { role: "user", content: message },
+            { role: "assistant", content: full },
+          );
+          setConversation(convo);
+          return full;
+        }
+
+        async function apiError(res) {
+          let message = `AI request failed (${res.status})`;
+          try {
+            const body = await res.json();
+            if (body?.error?.message) message = body.error.message;
+          } catch (_) {}
+          if (res.status === 401)
+            message = "Invalid API key. Check AI SETTINGS.";
+          if (res.status === 429)
+            message =
+              "Rate limited by the AI provider. Please wait and try again.";
+          return new Error(message);
+        }
+
+        return {
+          isConfigured,
+          getKey,
+          getModel,
+          send,
+          stream,
+          clearConversation,
+          setKey: (k) => localStorage.setItem(KEY_STORAGE, k),
+          setModel: (m) =>
+            localStorage.setItem(MODEL_STORAGE, m || "claude-sonnet-4-6"),
+        };
+      })();
+
+      /* ============================================================
+   UI: page bootstrap, settings modal, chat controller, dashboard
+   ============================================================ */
+      function escapeHtml(s) {
+        return String(s || "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const loader = document.getElementById("loader");
+        setTimeout(() => loader && loader.classList.add("hide"), 700);
+
+        const tabs = document.querySelectorAll(".tab"),
+          panels = document.querySelectorAll(".panel");
+        tabs.forEach((tab) =>
+          tab.addEventListener("click", () => {
+            tabs.forEach((t) => t.classList.remove("active"));
+            panels.forEach((p) => p.classList.remove("active"));
+            tab.classList.add("active");
+            document
+              .getElementById("panel-" + tab.dataset.panel)
+              ?.classList.add("active");
+            if (tab.dataset.panel === "players") loadPlayers();
+            if (tab.dataset.panel === "team") loadTeamDashboard();
           }),
-      );
-      const file = $("#file");
-      $("#select").onclick = (e) => {
-        e.stopPropagation();
-        file.click();
-      };
-      $("#upload").onclick = (e) => {
-        if (e.target !== $("#select")) file.click();
-      };
-      file.onchange = () => {
-        if (file.files[0])
-          $("#filename").textContent = "SELECTED: " + file.files[0].name;
-      };
-      $("#analyze").onclick = () => {
-        $("#result").classList.add("show");
-        $("#result").innerHTML =
-          '<b style="color:#ff3038">ANALYSIS COMPLETE</b><br><br>Detected 14 high-impact moments · 8 tactical patterns · 3 improvement areas.<br><br><b>Demo insight:</b> positioning and timing are the main improvement opportunities.';
-        $("#credits").textContent = "64 / 100";
-        $("#creditbar").style.width = "64%";
-      };
-      $("#predict").onclick = () => {
-        let a = Math.floor(55 + Math.random() * 31),
-          b = 100 - a;
-        $("#pa").textContent = a + "%";
-        $("#pc").textContent = b + "%";
-        $("#pb").style.width = a + "%";
-      };
-      $("#scan").onclick = () =>
-        alert(
-          "Demo scouting scan: " +
-            ($("#scoutq").value || "all players") +
-            "\nConnect this to your player database for real scouting.",
         );
-      function send() {
-        let v = $("#chatinput").value.trim();
-        if (!v) return;
-        $("#chatbox").innerHTML +=
-          `<div class="msg"><b>YOU</b><br>${v.replace(/[<>]/g, "")}</div>`;
-        $("#chatinput").value = "";
-        setTimeout(
-          () =>
-            ($("#chatbox").innerHTML +=
-              '<div class="msg"><b>VORTEX AI</b><br>Demo response. Connect your AI backend/model here for real answers.</div>'),
-          350,
+
+        document.querySelectorAll(".api-copy").forEach((btn) =>
+          btn.addEventListener("click", () => {
+            navigator.clipboard?.writeText(btn.dataset.copy || "");
+            btn.textContent = "COPIED";
+            setTimeout(() => (btn.textContent = "COPY"), 1200);
+          }),
         );
+
+        // Settings modal
+        const backdrop = document.getElementById("settingsBackdrop");
+        const openBtn = document.getElementById("opensettings");
+        const closeBtn = document.getElementById("closesettings");
+        const saveBtn = document.getElementById("savesettings");
+        const keyInput = document.getElementById("apikeyinput");
+        const modelInput = document.getElementById("modelinput");
+        function openSettings() {
+          keyInput.value = VortexAI.getKey();
+          modelInput.value = VortexAI.getModel();
+          backdrop.classList.add("show");
+        }
+        openBtn.onclick = openSettings;
+        document.getElementById("statusdot").onclick = openSettings;
+        closeBtn.onclick = () => backdrop.classList.remove("show");
+        backdrop.onclick = (e) => {
+          if (e.target === backdrop) backdrop.classList.remove("show");
+        };
+        saveBtn.onclick = () => {
+          VortexAI.setKey(keyInput.value.trim());
+          VortexAI.setModel(modelInput.value.trim());
+          backdrop.classList.remove("show");
+          updateStatus();
+        };
+
+        function updateStatus() {
+          const dot = document.getElementById("statusdot");
+          if (VortexAI.isConfigured()) {
+            dot.textContent = "● VORTEX AI ONLINE";
+            dot.style.color = "#43e991";
+          } else {
+            dot.textContent = "● NO API KEY — CLICK TO CONNECT";
+            dot.style.color = "#ff9a3d";
+          }
+        }
+        updateStatus();
+
+        loadPlayers();
+        loadTeamDashboard();
+        bindUpload();
+        document.getElementById("scan").onclick = runScout;
+        document.getElementById("predict").onclick = runPrediction;
+      });
+
+      /* ── Player Analytics ───────────────────────────────────────── */
+      function loadPlayers() {
+        const grid = document.getElementById("playercards");
+        const players = Knowledge.listPlayers();
+        if (players.length === 0) {
+          grid.innerHTML =
+            '<p class="loading-note">No players in VORTEX_DATA.</p>';
+          return;
+        }
+        grid.innerHTML = players
+          .map(
+            (p, i) => `
+    <article class="card">
+      <small>0${i + 1} · ${escapeHtml(p.role)}</small>
+      <h4>${escapeHtml(p.name)}</h4>
+      <div class="score">${p.rating}</div>
+      <div class="bar"><i style="width:${Math.min(100, p.rating)}%"></i></div>
+      <p>Impact ${p.impact ?? "—"} ${p.clutchPct ? `· Clutch ${p.clutchPct}%` : ""} ${p.consistency ? `· Consistency ${p.consistency}%` : ""}</p>
+    </article>`,
+          )
+          .join("");
       }
-      $("#send").onclick = send;
-      $("#chatinput").onkeydown = (e) => {
-        if (e.key === "Enter") send();
-      };
-      function copyText(t) {
-        navigator.clipboard?.writeText(t);
-        alert("Copied: " + t);
+
+      /* ── Scouting ────────────────────────────────────────────────── */
+      function runScout() {
+        const q = document.getElementById("scoutq").value;
+        const role = document.getElementById("scoutrole").value;
+        const results = document.getElementById("scoutresults");
+        let players = Knowledge.listPlayers({
+          role: role !== "ALL ROLES" ? role : "",
+        });
+        if (q) {
+          const ql = q.toLowerCase();
+          players = players.filter((p) =>
+            [p.name, p.role, p.region, p.team, p.note]
+              .filter(Boolean)
+              .some((f) => f.toLowerCase().includes(ql)),
+          );
+        }
+        if (players.length === 0) {
+          results.innerHTML =
+            '<p class="loading-note">No players matched that search.</p>';
+          return;
+        }
+        results.innerHTML = players
+          .map(
+            (p) => `
+    <article>
+      <small>${escapeHtml(p.region)} · ${escapeHtml(p.role)}</small>
+      <h4>${escapeHtml(p.name)}</h4>
+      <strong>${p.rating}</strong>
+      <p>${escapeHtml(p.note || p.team + " roster player")}</p>
+      ${p.tag ? `<span class="tag">${escapeHtml(p.tag)}</span>` : ""}
+    </article>`,
+          )
+          .join("");
       }
+
+      /* ── Prediction ──────────────────────────────────────────────── */
+      function runPrediction() {
+        const teamA = document.getElementById("teamA").value.trim();
+        const teamB = document.getElementById("teamB").value.trim();
+        const pa = document.getElementById("pa"),
+          pb = document.getElementById("pb"),
+          pc = document.getElementById("pc"),
+          note = document.getElementById("prednote");
+        try {
+          const result = Prediction.predict(teamA, teamB);
+          pa.textContent = result.teamA + "%";
+          pc.textContent = result.teamB + "%";
+          pb.style.width = result.teamA + "%";
+          note.textContent = `Estimate · confidence ${(result.confidence * 100).toFixed(0)}% · based on: ${result.factors.join(", ")}.`;
+        } catch (err) {
+          pa.textContent = "—";
+          pc.textContent = "—";
+          pb.style.width = "0%";
+          note.textContent = "Prediction unavailable: " + err.message;
+        }
+      }
+
+      /* ── Team dashboard ──────────────────────────────────────────── */
+      function loadTeamDashboard() {
+        const vortex = Knowledge.getTeam("VORTEX");
+        const kpis = document.getElementById("kpis");
+        if (!vortex) {
+          kpis.innerHTML = '<p class="loading-note">No team data.</p>';
+          return;
+        }
+        const formPct = Math.round(
+          (vortex.recentForm.filter((r) => r === 1).length /
+            vortex.recentForm.length) *
+            100,
+        );
+        kpis.innerHTML = `
+    <div class="kpi"><small>WIN RATE</small><strong>${Math.round(vortex.winRate * 100)}%</strong><span>from VORTEX_DATA</span></div>
+    <div class="kpi"><small>AVG RATING</small><strong>${vortex.avgRating}</strong><span>from VORTEX_DATA</span></div>
+    <div class="kpi"><small>MAP WIN</small><strong>${Math.round(vortex.mapWinRate * 100)}%</strong><span>from VORTEX_DATA</span></div>
+    <div class="kpi"><small>SCOUT SCORE</small><strong>${vortex.scoutGrade}</strong><span>from VORTEX_DATA</span></div>`;
+        const chart = document.getElementById("chart");
+        chart.innerHTML =
+          VORTEX_DATA.matches
+            .map((m) => {
+              const won = (m.result || "").toLowerCase().includes("vortex");
+              const h = won ? 80 + Math.min(20, m.scoreA - m.scoreB) : 30;
+              return `<i style="height:${h}%" title="${escapeHtml(m.teamA)} vs ${escapeHtml(m.teamB)}"></i>`;
+            })
+            .join("") || '<p class="loading-note">No matches recorded.</p>';
+      }
+
+      /* ── Gameplay upload (honest stub — no CV in a browser tab) ───── */
+      let selectedFile = null;
+      function bindUpload() {
+        const fileInput = document.getElementById("file"),
+          selectBtn = document.getElementById("select"),
+          uploadZone = document.getElementById("upload"),
+          filenameEl = document.getElementById("filename"),
+          analyzeBtn = document.getElementById("analyze"),
+          resultEl = document.getElementById("result");
+        selectBtn.onclick = (e) => {
+          e.stopPropagation();
+          fileInput.click();
+        };
+        uploadZone.onclick = (e) => {
+          if (e.target !== selectBtn) fileInput.click();
+        };
+        fileInput.onchange = () => {
+          selectedFile = fileInput.files[0] || null;
+          filenameEl.textContent = selectedFile
+            ? "SELECTED: " + selectedFile.name
+            : "";
+        };
+        analyzeBtn.onclick = () => {
+          resultEl.classList.add("show");
+          if (!selectedFile) {
+            resultEl.innerHTML =
+              '<b style="color:#ff9a3d">NO FILE SELECTED</b><br><br>Choose a gameplay video first.';
+            return;
+          }
+          resultEl.innerHTML = `<b style="color:#ff9a3d">COMING SOON</b><br><br>"${escapeHtml(selectedFile.name)}" was selected, but this single-file build has no computer-vision backend to analyze it. Connect a real video-analysis service to make this live — no fabricated stats are shown.`;
+        };
+      }
+
+      /* ── Chat controller ─────────────────────────────────────────── */
+      const VortexChat = (() => {
+        let activeController = null,
+          lastUserMessage = null;
+        const els = {};
+        function cacheEls() {
+          els.chatbox = document.getElementById("chatbox");
+          els.input = document.getElementById("chatinput");
+          els.send = document.getElementById("send");
+          els.stop = document.getElementById("stopgen");
+          els.newChat = document.getElementById("newchat");
+          els.clearChat = document.getElementById("clearchat");
+        }
+        function renderMarkdown(md) {
+          const blocks = [];
+          let text = md.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+            blocks.push(code);
+            return "\u0000CB" + (blocks.length - 1) + "\u0000";
+          });
+          text = escapeHtml(text);
+          text = text
+            .replace(/^### (.*)$/gm, "<h4>$1</h4>")
+            .replace(/^## (.*)$/gm, "<h3>$1</h3>");
+          text = text
+            .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+            .replace(/`([^`]+)`/g, "<code>$1</code>");
+          text = text
+            .replace(/^\d+\.\s+(.*)$/gm, "<li>$1</li>")
+            .replace(/(<li>[\s\S]*?<\/li>\n?)+/g, (m) => "<ol>" + m + "</ol>");
+          text = text.replace(/\n{2,}/g, "</p><p>");
+          text = "<p>" + text + "</p>";
+          text = text.replace(
+            /\u0000CB(\d+)\u0000/g,
+            (_, i) =>
+              `<pre class="codeblock"><code>${escapeHtml(blocks[Number(i)])}</code></pre>`,
+          );
+          return text;
+        }
+        function ts() {
+          return new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+        }
+        function scrollBottom() {
+          els.chatbox.scrollTop = els.chatbox.scrollHeight;
+        }
+        function addUserMessage(text) {
+          const d = document.createElement("div");
+          d.className = "msg msg-user";
+          d.innerHTML = `<div class="msg-head"><span class="avatar avatar-user">U</span><b>YOU</b><span class="msg-time">${ts()}</span></div><div class="msg-body">${escapeHtml(text)}</div>`;
+          els.chatbox.appendChild(d);
+          scrollBottom();
+        }
+        function addAssistantPlaceholder() {
+          const d = document.createElement("div");
+          d.className = "msg msg-ai";
+          d.innerHTML = `<div class="msg-head"><span class="avatar avatar-ai">V</span><b>VORTEX AI</b><span class="msg-time">${ts()}</span></div><div class="msg-body"><span class="generating">GENERATING<i class="dots"></i></span></div><div class="msg-actions" hidden><button class="msg-copy">COPY</button><button class="msg-regen">REGENERATE</button></div>`;
+          els.chatbox.appendChild(d);
+          scrollBottom();
+          return d;
+        }
+        function finalize(msgEl, fullText, opts = {}) {
+          const body = msgEl.querySelector(".msg-body"),
+            actions = msgEl.querySelector(".msg-actions");
+          if (opts.error) {
+            body.innerHTML = `<span class="msg-error">⚠ ${escapeHtml(fullText)}</span> <button class="msg-retry">RETRY</button>`;
+            body.querySelector(".msg-retry").onclick = () =>
+              lastUserMessage &&
+              sendMessage(lastUserMessage, { replaceEl: msgEl });
+            return;
+          }
+          body.innerHTML = renderMarkdown(fullText || "");
+          actions.hidden = false;
+          actions.querySelector(".msg-copy").onclick = () =>
+            navigator.clipboard?.writeText(fullText);
+          actions.querySelector(".msg-regen").onclick = () => {
+            msgEl.remove();
+            lastUserMessage &&
+              sendMessage(lastUserMessage, { skipUserBubble: true });
+          };
+        }
+        function setGenerating(g) {
+          els.send.disabled = g;
+          if (els.stop) els.stop.hidden = !g;
+        }
+        async function sendMessage(text, opts = {}) {
+          if (!text || !text.trim()) return;
+          lastUserMessage = text;
+          if (!opts.skipUserBubble) addUserMessage(text);
+          const msgEl = opts.replaceEl || addAssistantPlaceholder();
+          if (opts.replaceEl)
+            msgEl.querySelector(".msg-body").innerHTML =
+              '<span class="generating">GENERATING<i class="dots"></i></span>';
+          setGenerating(true);
+          activeController = new AbortController();
+          let buffer = "";
+          try {
+            await VortexAI.stream(text, {
+              signal: activeController.signal,
+              onDelta: (chunk) => {
+                buffer += chunk;
+                msgEl.querySelector(".msg-body").innerHTML =
+                  renderMarkdown(buffer) + '<span class="cursor">▌</span>';
+                scrollBottom();
+              },
+            });
+            finalize(msgEl, buffer);
+          } catch (err) {
+            if (err.name === "AbortError") {
+              finalize(msgEl, buffer || "Generation stopped.");
+            } else {
+              finalize(msgEl, err.message, { error: true });
+              if (err.needsKey) document.getElementById("opensettings").click();
+            }
+          } finally {
+            setGenerating(false);
+            activeController = null;
+          }
+        }
+        function stopGeneration() {
+          activeController?.abort();
+        }
+        function newChat() {
+          VortexAI.clearConversation();
+          els.chatbox.innerHTML = "";
+          addSystemMessage("New conversation started.");
+        }
+        function clearChat() {
+          VortexAI.clearConversation();
+          els.chatbox.innerHTML = "";
+          addSystemMessage("Chat cleared.");
+        }
+        function addSystemMessage(text) {
+          const d = document.createElement("div");
+          d.className = "msg";
+          d.innerHTML = "<b>VORTEX AI</b><br>" + escapeHtml(text);
+          els.chatbox.appendChild(d);
+        }
+        function init() {
+          cacheEls();
+          els.send.onclick = () => {
+            const v = els.input.value.trim();
+            if (!v) return;
+            els.input.value = "";
+            sendMessage(v);
+          };
+          els.input.onkeydown = (e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              els.send.click();
+            }
+          };
+          els.stop.onclick = stopGeneration;
+          els.newChat.onclick = newChat;
+          els.clearChat.onclick = clearChat;
+        }
+        return { init };
+      })();
+      document.addEventListener("DOMContentLoaded", VortexChat.init);
     </script>
   </body>
 </html>
